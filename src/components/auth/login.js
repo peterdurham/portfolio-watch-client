@@ -27,8 +27,8 @@ const Login = () => {
         <div>
           <h2>Welcome to Portfolio Watch</h2>
           <WelcomeTextStyles>
-            Sign up below to use the free and encrypted portfolio tracking
-            service.
+            Sign up below to tracking your portfolio for stocks, cryptos, and
+            currencies.
           </WelcomeTextStyles>{" "}
           <WelcomeTextStyles>
             Try out the application as a guest, or register with your email.
