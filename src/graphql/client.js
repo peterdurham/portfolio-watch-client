@@ -1,8 +1,9 @@
 import { ApolloClient, createHttpLink, InMemoryCache } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
-import { isLoggedIn, getAccessToken } from "./auth";
+import { getAccessToken } from "./auth";
 
-const endpointURL = "http://localhost:4444/graphql";
+// const endpointURL = "http://localhost:4444/graphql";
+const endpointURL = "https://stark-woodland-16965.herokuapp.com";
 
 const httpLink = createHttpLink({
   uri: endpointURL,

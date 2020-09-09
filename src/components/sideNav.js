@@ -2,18 +2,17 @@ import React from "react";
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 import { FaChartPie } from "react-icons/fa";
-import { FiSettings } from "react-icons/fi";
 import { GiChart, GiMoneyStack } from "react-icons/gi";
 import { RiBitCoinLine } from "react-icons/ri";
-import { useQuery } from "@apollo/client";
-import { getUserQuery } from "../graphql/auth";
 
 const SideNavStyles = styled.div`
-  height: 100vh;
+  min-height: 100vh;
   background: ${(props) => props.theme.themeMedium};
   color: ${(props) => props.theme.textDark};
-
   font-size: 17px;
+  @media (max-width: 720px) {
+    display: none;
+  }
 
   #user-select {
     height: 52px;
@@ -57,35 +56,26 @@ const SideNavStyles = styled.div`
 `;
 
 const SideNav = () => {
-  const { data } = useQuery(getUserQuery);
-
-  const user = data && data.getUser ? data.getUser.email : null;
-
   return (
     <SideNavStyles>
-      {/* <div id="user-select">{user && <span> {user} ▼</span>}</div> */}
-
       <h3>Main</h3>
       <NavLink to="/portfolio" activeClassName="selected">
         <FaChartPie />
         <span>Portfolio</span>
       </NavLink>
-      <NavLink to="/settings" activeClassName="selected">
-        <FiSettings />
-        <span>Settings</span>
-      </NavLink>
+
       <h3>Assets</h3>
       <NavLink to="/stocks" activeClassName="selected">
         <GiChart />
-        <span>Stock</span>
+        <span>Stocks</span>
       </NavLink>
       <NavLink to="/cryptos" activeClassName="selected">
         <RiBitCoinLine />
-        <span>Crypto</span>
+        <span>Cryptos</span>
       </NavLink>
       <NavLink to="/currencies" activeClassName="selected">
         <GiMoneyStack />
-        <span>Currency</span>
+        <span>Currencies</span>
       </NavLink>
     </SideNavStyles>
   );

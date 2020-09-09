@@ -51,7 +51,7 @@ const Currencies = () => {
       <Modal showModal={showModal} onModalClose={onModalClose}>
         {currencyToAdd && (
           <>
-            <p>Add {currencyToAdd}</p>
+            <h3>Add {currencyToAdd}</h3>
             <form onSubmit={submitAddAsset}>
               <label htmlFor="amount">Amount:</label>
               <input
@@ -66,8 +66,10 @@ const Currencies = () => {
         )}
         {currencyToUpdate && (
           <>
-            <p>Update {currencyToUpdate}</p>
-            <p>Current Amount: {currentAmount}</p>
+            <h3>Update {currencyToUpdate}</h3>
+            <p style={{ display: "flex", marginBottom: "16px" }}>
+              Current Amount: {Number(currentAmount).toLocaleString()}
+            </p>
             <form onSubmit={submitUpdateAsset}>
               <label htmlFor="updateamount">New Amount:</label>
               <input
@@ -82,7 +84,9 @@ const Currencies = () => {
         )}
       </Modal>
       <ContainerStyles>
-        <h1 className="fade-in-up">Currencies go here</h1>
+        <h1 className="fade-in-up">
+          <span className="currencies-label">Currencies</span>
+        </h1>
       </ContainerStyles>
       {currencyData && currencyData.portfolio && (
         <ContainerStyles>
@@ -91,7 +95,7 @@ const Currencies = () => {
               const assetOwned = currencyData.portfolio.currencies.filter(
                 (item) => item.symbol === currency.symbol
               )[0];
-              const amount = assetOwned ? assetOwned.amount : 0;
+              const amount = assetOwned ? assetOwned.amount.toFixed(2) : 0;
 
               return (
                 <Currency
@@ -99,6 +103,7 @@ const Currencies = () => {
                   image={currency.image}
                   symbol={currency.symbol}
                   name={currency.name}
+                  sign={currency.sign}
                   amount={amount}
                   setShowModal={setShowModal}
                   setCurrencyToAdd={setCurrencyToAdd}

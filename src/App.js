@@ -6,9 +6,10 @@ import Dashboard from "./components/dashboard";
 import Portfolio from "./components/portfolio";
 import Layout from "./components/layout";
 import Stocks from "./components/stocks";
+import Stock from "./components/stock";
 import Cryptos from "./components/cryptos";
+import Crypto from "./components/crypto";
 import Currencies from "./components/currencies";
-import Settings from "./components/settings";
 import Register from "./components/auth/register";
 import Login from "./components/auth/login";
 
@@ -26,15 +27,19 @@ const App = () => {
           <Route exact path="/stocks">
             <Stocks />
           </Route>
+          <Route path="/stocks/:id">
+            <Stock />
+          </Route>
           <Route exact path="/cryptos">
             <Cryptos />
+          </Route>
+          <Route path="/cryptos/:id">
+            <Crypto />
           </Route>
           <Route path="/currencies">
             <Currencies />
           </Route>
-          <Route path="/settings">
-            <Settings />
-          </Route>
+
           <Route path="/register">
             <Register />
           </Route>

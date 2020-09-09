@@ -19,6 +19,7 @@ export const getUserQuery = gql`
     getUser {
       id
       email
+      username
     }
   }
 `;
@@ -31,8 +32,15 @@ const loginUserMutation = gql`
   }
 `;
 const registerUserMutation = gql`
-  mutation RegisterUser($email: String, $password: String) {
-    registerUser(email: $email, password: $password) {
+  mutation RegisterUser($email: String, $username: String, $password: String) {
+    registerUser(email: $email, username: $username, password: $password) {
+      token
+    }
+  }
+`;
+const registerGuestMutation = gql`
+  mutation RegisterUser {
+    registerGuest {
       token
     }
   }
@@ -53,11 +61,18 @@ export async function loginUser(email, password) {
   localStorage.setItem(accessTokenKey, data.loginUser.token);
   return data.token;
 }
-export async function registerUser(email, password) {
+export async function registerUser(email, username, password) {
   const { data } = await client.mutate({
     mutation: registerUserMutation,
-    variables: { email, password },
+    variables: { email, username, password },
   });
   localStorage.setItem(accessTokenKey, data.registerUser.token);
+  return data.token;
+}
+export async function registerGuest() {
+  const { data } = await client.mutate({
+    mutation: registerGuestMutation,
+  });
+  localStorage.setItem(accessTokenKey, data.registerGuest.token);
   return data.token;
 }
