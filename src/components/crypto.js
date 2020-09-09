@@ -27,7 +27,13 @@ const Crypto = () => {
   useEffect(() => {
     const selectedCrypto = cryptos.filter((crypto) => crypto.id === id)[0];
     setCryptoInfo(selectedCrypto);
-  }, []);
+
+    async function fetchData() {
+      const { data } = await fetchCryptoQuote(id);
+      setCryptoQuoteData(data);
+    }
+    fetchData();
+  }, [id]);
 
   const submitAddAsset = async (e) => {
     try {
@@ -113,62 +119,69 @@ const Crypto = () => {
         <CryptoLabel>
           {cryptoInfo && <h2>Crypto: {cryptoInfo.name}</h2>}
         </CryptoLabel>
-        <button
-          onClick={async () => {
-            const { data } = await fetchCryptoQuote(id);
-            setCryptoQuoteData(data);
-          }}
-        >
-          LOAD CRYPTO DATA
-        </button>
+
         <CryptoPrice>
           <h2>Details</h2>
           <div className="price-container">
             <span className="text-dark price-label">Current Price:</span>{" "}
-            {cryptoQuoteData && cryptoQuoteData.market_data && (
-              <span id="current-price">
-                $
-                {cryptoQuoteData.market_data.current_price.usd
-                  .toFixed(2)
-                  .toLocaleString()}
-              </span>
-            )}
-          </div>
-
-          {cryptoQuoteData && cryptoQuoteData.market_data && (
-            <div className="detail">
-              <span className="detail-label">Market Cap:</span>{" "}
-              <span className="detail-value">
-                $ {cryptoQuoteData.market_data.market_cap.usd.toLocaleString()}
-              </span>
-            </div>
-          )}
-          {cryptoQuoteData && cryptoQuoteData.market_data && (
-            <div className="detail">
-              <span className="detail-label">Total Amount:</span>{" "}
-              <span className="detail-value">
-                {cryptoQuoteData.market_data.circulating_supply.toLocaleString()}
-              </span>
-            </div>
-          )}
-          {cryptoQuoteData && cryptoQuoteData.market_data && (
-            <div className="detail">
-              <span className="detail-label">Max Supply:</span>{" "}
-              {cryptoQuoteData.market_data.max_supply && (
-                <span className="detail-value">
-                  {cryptoQuoteData.market_data.max_supply.toLocaleString()}
+            {cryptoQuoteData &&
+              cryptoQuoteData.market_data &&
+              cryptoQuoteData.market_data.current_price &&
+              cryptoQuoteData.market_data.current_price.usd && (
+                <span id="current-price">
+                  $
+                  {cryptoQuoteData.market_data.current_price.usd
+                    .toFixed(2)
+                    .toLocaleString()}
                 </span>
               )}
-            </div>
-          )}
-          {cryptoQuoteData && cryptoQuoteData.market_data && (
-            <div className="detail">
-              <span className="detail-label">All time high:</span>{" "}
-              <span className="detail-value">
-                $ {cryptoQuoteData.market_data.ath.usd.toLocaleString()}
-              </span>
-            </div>
-          )}
+          </div>
+
+          {cryptoQuoteData &&
+            cryptoQuoteData.market_data &&
+            cryptoQuoteData.market_data.market_cap &&
+            cryptoQuoteData.market_data.market_cap.usd && (
+              <div className="detail">
+                <span className="detail-label">Market Cap:</span>{" "}
+                <span className="detail-value">
+                  ${" "}
+                  {cryptoQuoteData.market_data.market_cap.usd.toLocaleString()}
+                </span>
+              </div>
+            )}
+          {cryptoQuoteData &&
+            cryptoQuoteData.market_data &&
+            cryptoQuoteData.market_data.circulating_supply && (
+              <div className="detail">
+                <span className="detail-label">Total Amount:</span>{" "}
+                <span className="detail-value">
+                  {cryptoQuoteData.market_data.circulating_supply.toLocaleString()}
+                </span>
+              </div>
+            )}
+          {cryptoQuoteData &&
+            cryptoQuoteData.market_data &&
+            cryptoQuoteData.market_data.max_supply && (
+              <div className="detail">
+                <span className="detail-label">Max Supply:</span>{" "}
+                {cryptoQuoteData.market_data.max_supply && (
+                  <span className="detail-value">
+                    {cryptoQuoteData.market_data.max_supply.toLocaleString()}
+                  </span>
+                )}
+              </div>
+            )}
+          {cryptoQuoteData &&
+            cryptoQuoteData.market_data &&
+            cryptoQuoteData.market_data.ath &&
+            cryptoQuoteData.market_data.ath.usd && (
+              <div className="detail">
+                <span className="detail-label">All time high:</span>{" "}
+                <span className="detail-value">
+                  $ {cryptoQuoteData.market_data.ath.usd.toLocaleString()}
+                </span>
+              </div>
+            )}
         </CryptoPrice>
         <CryptoHoldings>
           <h2>Holdings</h2>

@@ -42,11 +42,19 @@ export function updateRecentStocks(symbol, name) {
   let recentStocks = [];
 
   if (storedRecentStocks) {
-    recentStocks = storedRecentStocks;
-    recentStocks.push({ symbol, name });
+    const checkForDuplicate = storedRecentStocks.filter(
+      (item) => item.symbol === symbol
+    );
 
-    if (storedRecentStocks.length > 5) {
-      recentStocks.shift();
+    if (checkForDuplicate.length === 0) {
+      recentStocks = storedRecentStocks;
+      recentStocks.push({ symbol, name });
+
+      if (storedRecentStocks.length > 5) {
+        recentStocks.shift();
+      }
+    } else {
+      recentStocks = storedRecentStocks;
     }
   } else {
     recentStocks.push({ symbol, name });
@@ -69,11 +77,19 @@ export function updateRecentCryptos(id, name, symbol) {
   let recentCryptos = [];
 
   if (storedRecentCryptos) {
-    recentCryptos = storedRecentCryptos;
-    recentCryptos.push({ id, name, symbol });
+    const checkForDuplicate = storedRecentCryptos.filter(
+      (item) => item.id === id
+    );
 
-    if (storedRecentCryptos.length > 5) {
-      recentCryptos.shift();
+    if (checkForDuplicate.length === 0) {
+      recentCryptos = storedRecentCryptos;
+      recentCryptos.push({ id, name, symbol });
+
+      if (storedRecentCryptos.length > 5) {
+        recentCryptos.shift();
+      }
+    } else {
+      recentCryptos = storedRecentCryptos;
     }
   } else {
     recentCryptos.push({ id, name, symbol });

@@ -29,7 +29,12 @@ const Stock = () => {
       (stock) => stock.symbol === id.toUpperCase()
     )[0];
     setStockInfo(selectedStock);
-  }, []);
+    async function fetchData() {
+      const { data } = await fetchStockQuote(id);
+      setStockQuoteData(data);
+    }
+    fetchData();
+  }, [id]);
 
   const submitAddAsset = async (e) => {
     try {
@@ -110,14 +115,7 @@ const Stock = () => {
           )}
         </Modal>
         <StockLabel>{stockInfo && <h2>Stock: {stockInfo.name}</h2>}</StockLabel>
-        <button
-          onClick={async () => {
-            const { data } = await fetchStockQuote(id);
-            setStockQuoteData(data);
-          }}
-        >
-          LOAD STOCK DATA
-        </button>
+
         <StockPrice>
           <h2>Details</h2>
           <div className="price-container">
@@ -129,7 +127,8 @@ const Stock = () => {
             )}
             {stockQuoteData &&
               stockQuoteData.changePercent &&
-              stockQuoteData.changePercent !== 0 && (
+              stockQuoteData.changePercent !== 0 &&
+              stockQuoteData.changePercent !== "0" && (
                 <span
                   className={
                     "percentage-change" +
