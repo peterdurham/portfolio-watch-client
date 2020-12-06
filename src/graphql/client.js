@@ -4,7 +4,7 @@ import { getAccessToken } from "./auth";
 
 // const endpointURL = "http://localhost:4444/graphql";
 // const endpointURL = "https://stark-woodland-16965.herokuapp.com";
-const endpointURL = "https://portfolio-watch-server.netlify.app"
+const endpointURL = "https://serene-peak-59951.herokuapp.com/"
 
 const httpLink = createHttpLink({
   uri: endpointURL,
