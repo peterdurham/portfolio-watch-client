@@ -204,7 +204,7 @@ const Stock = () => {
                     ${(amount * stockQuoteData.latestPrice).toLocaleString()}
                   </span>
                 ) : (
-                  <span>loading</span>
+                  <span>-</span>
                 )}
               </div>
               <div>
